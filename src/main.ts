@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import globalComponent from '@/components/Index'
+import globalComponent from '@/components'
 
 import App from '@/App.vue'
 import router from './router'

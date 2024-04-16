@@ -1,7 +1,30 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-// import SvgIcon from '@/components/SvgIcon/Index.vue'
+import axios from 'axios'
+import { reqLogin, reqUserInfo } from '@/api/user'
+import { onMounted } from 'vue'
+
+onMounted(async () => {
+  console.log('onMounted...')
+  const res = await reqUserInfo()
+  console.log(res)
+
+  const res2 = await reqLogin({
+    username: 'admin',
+    password: '111111'
+  })
+  console.log(res2)
+})
+
 console.log(import.meta.env)
+axios({
+  method: 'POST',
+  url: '/api/user/login',
+  data: {
+    username: 'admin',
+    password: '111111'
+  }
+})
 </script>
 
 <template>
