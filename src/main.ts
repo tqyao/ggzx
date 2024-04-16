@@ -5,6 +5,7 @@ import globalComponent from '@/components/Index'
 import App from '@/App.vue'
 import router from './router'
 import 'virtual:svg-icons-register'
+import '@/styles/index.scss'
 
 const app = createApp(App)
 

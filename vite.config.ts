@@ -34,5 +34,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  // scss 配置（首先安装 scss scss-loader）
+  css: {
+    preprocessorOptions: {
+      scss: {
+        javascriptEnabled: true,
+        additionalData: '@import "./src/styles/variable.scss";' //scss 全局变量位置
+      }
+    }
   }
 })
