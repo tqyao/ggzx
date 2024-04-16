@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+const str = "123";
 </script>
 
 <template>
