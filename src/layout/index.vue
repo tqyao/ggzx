@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
+import { useUserStore } from '@/store'
+
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -10,7 +13,7 @@ import Menu from './menu/index.vue'
       <Logo></Logo>
       <el-scrollbar class="scrollbar" height="400px">
         <el-menu background-color="#001529" text-color="white">
-          <Menu></Menu>
+          <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -25,7 +28,7 @@ import Menu from './menu/index.vue'
 .layout_container {
   width: 100%;
   height: 100vh;
-  //background-color: ;
+
   .layout_slider {
     width: $base-menu-width;
     height: 100vh;
@@ -49,7 +52,6 @@ import Menu from './menu/index.vue'
     top: 0;
     left: $base-menu-width;
   }
-
 
   .layout_main {
     position: absolute;

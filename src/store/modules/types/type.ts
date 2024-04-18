@@ -1,6 +1,9 @@
+import type { RouteRecordRaw } from 'vue-router'
+
 export interface UserState {
   token: string | null
-  // menuRoutes: RouteRecordRaw[],
   username: string
   avatar: string
+  // 菜单路由
+  menuRoutes: RouteRecordRaw[]
 }

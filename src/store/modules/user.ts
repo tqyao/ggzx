@@ -4,6 +4,7 @@ import { reqLogin } from '@/api/user'
 import type { loginFormData, loginResponseData } from '@/api/user/type'
 import type { UserState } from '@/store/modules/types/type'
 import { GET_TOKEN, SET_TOKEN } from '@/utils/token'
+import { constantRoute } from '@/router/router'
 
 
 //创建用户小仓库
@@ -13,7 +14,8 @@ export const useUserStore = defineStore('User', {
     return {
       token: GET_TOKEN(),
       avatar: '',
-      username: ''
+      username: '',
+      menuRoutes: constantRoute
     }
   },
   //处理异步|逻辑地方
