@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Logo from './logo/index.vue'
+import Menu from './menu/index.vue'
 </script>
 
 <template>
@@ -7,13 +8,16 @@ import Logo from './logo/index.vue'
     <!-- 左侧菜单栏    -->
     <div class="layout_slider">
       <Logo></Logo>
+      <el-scrollbar class="scrollbar" height="400px">
+        <el-menu background-color="#001529" text-color="white">
+          <Menu></Menu>
+        </el-menu>
+      </el-scrollbar>
     </div>
     <!-- 顶部菜单栏    -->
     <div class="layout_tabbar"></div>
     <!-- 主体内容展示   -->
-    <div class="layout_main">
-
-    </div>
+    <div class="layout_main"></div>
   </div>
 </template>
 
@@ -26,6 +30,15 @@ import Logo from './logo/index.vue'
     width: $base-menu-width;
     height: 100vh;
     background-color: $base-menu-background;
+
+    .scrollbar {
+      width: 100%;
+      height: calc(100vh - $base-menu-logo-height);
+
+      .el-menu {
+        border-right: none;
+      }
+    }
   }
 
   .layout_tabbar {
@@ -36,6 +49,7 @@ import Logo from './logo/index.vue'
     top: 0;
     left: $base-menu-width;
   }
+
 
   .layout_main {
     position: absolute;
