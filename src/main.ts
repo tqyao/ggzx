@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import pinia from '@/store/index'
 import globalComponent from '@/components'
 
 import App from '@/App.vue'
@@ -11,7 +11,7 @@ const app = createApp(App)
 
 // 自定义插件
 app.use(globalComponent)
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

@@ -15,13 +15,16 @@ export interface ResponseData {
   code: number
 }
 
+export interface dataType {
+  token?: string
+  message?: string
+}
+
 /**
  * 定义登录接口返回数据类型
  */
 export interface loginResponseData extends ResponseData {
-  data: {
-    token: string
-  }
+  data: dataType
 }
 
 /**
