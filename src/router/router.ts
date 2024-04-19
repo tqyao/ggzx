@@ -19,7 +19,7 @@ export const constantRoute = [
     name: 'layout',
     meta: {
       title: '',
-      hidden: false,
+      hidden: true,
       icon: ''
     },
     children: [

@@ -7,3 +7,4 @@ export default pinia
 
 // 引入总仓库再导出
 export * from './modules/user'
+export * from './modules/setting'

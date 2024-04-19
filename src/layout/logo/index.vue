@@ -1,11 +1,22 @@
 <script setup lang="ts">
 import setting from '@/setting'
+
+defineProps({
+  titleVisible: {
+    type: Boolean,
+    default: true
+  }
+})
+
+defineOptions({
+  name: 'Logo'
+})
 </script>
 
 <template>
   <div class="logo">
     <img :src="setting.logo" alt="" v-if="setting.logoHidden" />
-    <p>{{ setting.title }}</p>
+    <p v-if="titleVisible">{{ setting.title }}</p>
   </div>
 </template>
 
@@ -16,7 +27,7 @@ import setting from '@/setting'
   color: white;
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
 
   img {
     width: 40px;
