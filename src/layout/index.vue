@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Logo from './logo/index.vue'
 import Menu from './menu/index.vue'
+import Main from './main/index.vue'
 import { useUserStore } from '@/store'
 
 const userStore = useUserStore()
@@ -20,7 +21,9 @@ const userStore = useUserStore()
     <!-- 顶部菜单栏    -->
     <div class="layout_tabbar"></div>
     <!-- 主体内容展示   -->
-    <div class="layout_main"></div>
+    <div class="layout_main">
+      <Main></Main>
+    </div>
   </div>
 </template>
 

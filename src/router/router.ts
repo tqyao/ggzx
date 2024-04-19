@@ -44,16 +44,16 @@ export const constantRoute = [
         //   }
         // ]
       },
-      // {
-      //   path: '/test1',
-      //   component: () => import('@/views/home/index.vue'),
-      //   name: 'level2',
-      //   meta: {
-      //     title: 'level2',
-      //     hidden: false,
-      //     icon: 'Notification'
-      //   }
-      // }
+      {
+        path: '/test1',
+        component: () => import('@/layout/test/index.vue'),
+        name: 'level2',
+        meta: {
+          title: 'level2',
+          hidden: false,
+          icon: 'Notification'
+        }
+      }
     ]
   },
   {
