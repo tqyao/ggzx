@@ -1,15 +1,17 @@
-<template>
-  <div>
-    home
-  </div>
-</template>
-
 <script setup lang="ts">
 
 defineOptions({
   name: 'HomeIndex'
 })
 </script>
+
+<template>
+  <div>
+    home
+  </div>
+</template>
+
+
 
 <style scoped lang="=scss">
 
