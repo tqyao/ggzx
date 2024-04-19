@@ -12,7 +12,7 @@ const userStore = useUserStore()
     <!-- 左侧菜单栏    -->
     <div class="layout_slider">
       <Logo></Logo>
-      <el-scrollbar class="scrollbar" height="400px">
+      <el-scrollbar class="scrollbar">
         <el-menu background-color="#001529" text-color="white">
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>

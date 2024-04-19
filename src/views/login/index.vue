@@ -108,6 +108,10 @@ const rules = {
     { trigger: 'change', validator: validatorPassword }
   ]
 }
+
+defineOptions({
+  name: 'LoginIndex'
+})
 </script>
 
 <style scoped lang="scss">
