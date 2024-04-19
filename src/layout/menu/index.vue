@@ -12,6 +12,8 @@ const goRoute = (vc: any) => {
   $router.push(vc.index)
 }
 defineOptions({
+  // 禁止使用保留的组件名称
+  // eslint-disable-next-line vue/no-reserved-component-names
   name: 'Menu'
 })
 </script>
