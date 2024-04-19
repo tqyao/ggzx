@@ -15,8 +15,8 @@ export interface ResponseData {
   code: number
 }
 
-export interface dataType {
-  token?: string
+// 请求失败返回的错误信息
+interface dataType {
   message?: string
 }
 
@@ -24,22 +24,24 @@ export interface dataType {
  * 定义登录接口返回数据类型
  */
 export interface loginResponseData extends ResponseData {
-  data: dataType
+  data: dataType & { token: string }
 }
 
 /**
  * 定义获取用户信息返回数据类型
  */
 export interface userInfoResponseData extends ResponseData {
-  data: {
-    userId: number
-    avatar: string
-    username: string
-    password: string
-    desc: string
-    roles: string[]
-    buttons: string[]
-    routes: string[]
-    token: string
+  data: dataType & {
+    checkUser:{
+      userId: number
+      avatar: string
+      username: string
+      password: string
+      desc: string
+      roles: string[]
+      buttons: string[]
+      routes: string[]
+      token: string
+    }
   }
 }

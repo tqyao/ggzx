@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUserStore, useLayOutSettingStore } from '@/store'
+import { useRouter, useRoute } from 'vue-router'
 
 const userStore = useUserStore()
 const layOutSettingStore = useLayOutSettingStore()
@@ -22,7 +23,13 @@ const fullScreenFn = () => {
   }
 }
 
-const logout = () => {}
+const $router = useRouter()
+const $route = useRoute()
+// 登出回调
+const logout = () => {
+  userStore.logout()
+  $router.push(`/login?redirect=${$route.path}`)
+}
 
 defineOptions({
   name: 'SettingIndex'
@@ -32,7 +39,7 @@ defineOptions({
 <template>
   <el-button @click="reFreshFn" size="small" icon="Refresh" circle></el-button>
   <el-button @click="fullScreenFn" size="small" icon="FullScreen" circle></el-button>
-  <el-button size="small" icon="Setting" circle></el-button>
+  <el-button @click="logout" size="small" icon="Setting" circle></el-button>
 
   <img
     :src="userStore.avatar"
