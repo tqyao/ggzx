@@ -2,6 +2,7 @@
 import { useLayOutSettingStore } from '@/store'
 import { nextTick, watch, ref } from 'vue'
 
+// 监听刷新按钮点击事件变化，执行创建销毁组件
 const layOutSettingStore = useLayOutSettingStore()
 const flag = ref(false)
 watch(

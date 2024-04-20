@@ -6,27 +6,11 @@ import Tabbar from './tabbar/index.vue'
 import { useUserStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { useLayOutSettingStore } from '@/store'
-import { onMounted } from 'vue'
 
 const userStore = useUserStore()
 const $route = useRoute()
 const layOutSettingStore = useLayOutSettingStore()
 
-onMounted(async () => {
-  // try {
-  //   await userStore.reqUserInfo()
-  // } catch (e) {
-  //   console.log((e as Error).message)
-  // }
-
-  await userStore.reqUserInfo().catch((error) => {
-    ElNotification({
-      title: '错误',
-      message: error.message,
-      type: 'error'
-    })
-  })
-})
 
 defineOptions({
   name: 'LayoutIndex'

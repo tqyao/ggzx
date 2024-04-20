@@ -15,7 +15,7 @@ export const useUserStore = defineStore('User', {
     return {
       token: GET_TOKEN(),
       avatar: defaultAvatar,
-      username: 'tqyao',
+      username: '',
       menuRoutes: constantRoute
     }
   },
