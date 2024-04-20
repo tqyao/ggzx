@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import axios from 'axios'
-import { reqLogin, reqUserInfo } from '@/api/user'
+import { reqLoginServer, reqUserInfoServer } from '@/api/user'
 import { onMounted } from 'vue'
 
 onMounted(async () => {
   console.log('onMounted...')
-  const res = await reqUserInfo()
+  const res = await reqUserInfoServer()
   console.log(res)
 
-  const res2 = await reqLogin({
+  const res2 = await reqLoginServer({
     username: 'admin',
     password: '111111'
   })

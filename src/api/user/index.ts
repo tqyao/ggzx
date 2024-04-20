@@ -1,13 +1,16 @@
 import request from '@/utils/request'
-import type { loginFormData, loginResponseData, userInfoResponseData } from './type'
+import type { LoginFormReqData, LoginResponseData, userInfoResponseData } from './type'
 
 enum API {
-  LOGIN_URL = '/user/login',
-  USER_INFO_URL = '/user/info'
+  LOGIN_URL = '/admin/acl/index/login',
+  USERINFO_URL = '/admin/acl/index/info',
+  LOGOUT_URL = '/admin/acl/index/logout'
 }
 
-// 登录接口
-export const reqLogin = (data: loginFormData) =>
-  request.post<any, loginResponseData>(API.LOGIN_URL, data)
-// 获取用户信息
-export const reqUserInfo = () => request.get<any, userInfoResponseData>(API.USER_INFO_URL)
+//登录接口
+export const reqLoginServer = (data: LoginFormReqData) =>
+  request.post<any, LoginResponseData>(API.LOGIN_URL, data)
+//获取用户信息
+export const reqUserInfoServer = () => request.get<any, userInfoResponseData>(API.USERINFO_URL)
+//退出登录
+export const reqLogoutServer = () => request.post<any, any>(API.LOGOUT_URL)

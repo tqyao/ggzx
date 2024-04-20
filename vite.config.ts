@@ -10,10 +10,30 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { viteMockServe } from 'vite-plugin-mock'
+import { loadEnv } from 'vite'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }) => {
+  /*
+  根据当前工作目录中的 `mode` 加载 .env 文件 例如：.env.development .env.production
+  - mode 为当前环境变量
+  - process.cwd() 为当前项目的根目录
+   */
+  const env = loadEnv(mode, process.cwd())
   return {
+    server: {
+      // 设置服务器代理，解决跨域问题
+      proxy: {
+        [env.VITE_APP_BASE_API]: {
+          //获取数据服务器地址的设置
+          target: env.VITE_SERVER,
+          //需要代理跨域
+          changeOrigin: true,
+          //路径重写
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
+    },
     plugins: [
       vue(),
       viteMockServe({

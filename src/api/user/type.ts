@@ -3,7 +3,7 @@
 /**
  * 定义用登录请求数据类型
  */
-export interface loginFormData {
+export interface LoginFormReqData {
   username: string
   password: string
 }
@@ -13,35 +13,26 @@ export interface loginFormData {
  */
 export interface ResponseData {
   code: number
-}
-
-// 请求失败返回的错误信息
-interface dataType {
-  message?: string
+  message: string
+  ok: boolean
 }
 
 /**
  * 定义登录接口返回数据类型
  */
-export interface loginResponseData extends ResponseData {
-  data: dataType & { token: string }
+export interface LoginResponseData extends ResponseData {
+  data: string
 }
 
 /**
  * 定义获取用户信息返回数据类型
  */
 export interface userInfoResponseData extends ResponseData {
-  data: dataType & {
-    checkUser:{
-      userId: number
-      avatar: string
-      username: string
-      password: string
-      desc: string
-      roles: string[]
-      buttons: string[]
-      routes: string[]
-      token: string
-    }
+  data: {
+    name: string
+    avatar: string
+    roles: string[]
+    buttons: string[]
+    routes: string[]
   }
 }
