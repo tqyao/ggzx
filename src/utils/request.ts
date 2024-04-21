@@ -26,6 +26,7 @@ request.interceptors.response.use(
   (error) => {
     //处理网络错误
     let msg = ''
+    console.log('response', error)
     const status = error.response.status
     // console.log('@', status)
     switch (status) {

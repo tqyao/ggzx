@@ -45,14 +45,17 @@ export const useUserStore = defineStore('User', {
         return Promise.reject(new Error(res.message))
       }
     },
+    clearUserInfo() {
+      this.token = ''
+      this.username = ''
+      this.avatar = ''
+      SET_TOKEN('')
+    },
     // 退出登录
     async logout() {
       const res = await reqLogoutServer()
       if (res.code === 200) {
-        this.token = ''
-        this.username = ''
-        this.avatar = ''
-        SET_TOKEN('')
+        this.clearUserInfo()
         return 'ok'
       } else {
         return Promise.reject(new Error(res.message))
