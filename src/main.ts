@@ -9,7 +9,7 @@ import '@/styles/index.scss'
 
 // 引入路由鉴权
 import '@/permisstion'
-
+// import '@/test'
 
 const app = createApp(App)
 

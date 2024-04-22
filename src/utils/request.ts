@@ -10,7 +10,6 @@ const request = axios.create({
 
 //请求拦截器
 request.interceptors.request.use((config) => {
-  console.log(import.meta.env.VITE_SERVER + import.meta.env.VITE_APP_BASE_API)
   const userStore = useUserStore()
   if (userStore.token) {
     config.headers.token = userStore.token
@@ -21,12 +20,20 @@ request.interceptors.request.use((config) => {
 //响应拦截器
 request.interceptors.response.use(
   (response) => {
-    return response.data
+    //处理响应数据
+    const data = response.data
+    if (data.code !== 200) {
+      ElMessage({
+        type: 'error',
+        message: data.message
+      })
+      return Promise.reject(new Error(data.msg))
+    }
+    return data
   },
   (error) => {
     //处理网络错误
     let msg = ''
-    console.log('response', error)
     const status = error.response.status
     // console.log('@', status)
     switch (status) {
