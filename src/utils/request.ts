@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store'
 //创建axios实例
 
@@ -34,28 +33,35 @@ request.interceptors.response.use(
   (error) => {
     //处理网络错误
     let msg = ''
-    const status = error.response.status
-    // console.log('@', status)
-    switch (status) {
-      case 401:
-        msg = 'token过期'
-        break
-      case 403:
-        msg = '无权访问'
-        break
-      case 404:
-        msg = '请求地址错误'
-        break
-      case 500:
-        msg = '服务器出现问题'
-        break
-      default:
-        msg = '无网络'
+    try {
+      const status = error.response.status
+      console.log('@request.ts err =>', error)
+      switch (status) {
+        case 401:
+          msg = 'token过期'
+          break
+        case 403:
+          msg = '无权访问'
+          break
+        case 404:
+          msg = '请求地址错误'
+          break
+        case 500:
+          msg = '服务器出现问题'
+          break
+        default:
+          msg = '无网络'
+      }
+    } catch (e) {
+      console.error('@@request.ts (try..catch err)', e)
+      msg = '网络连接超时，请稍后尝试'
     }
     ElMessage({
       type: 'error',
       message: msg
     })
+    // 在具体接口请求调用处，await Promise 不调用.then 或是 catch 处理
+    // ，方法执行会直接结束并排除改未捕获处理的异常，即为此处的 error 异常
     return Promise.reject(error)
   }
 )

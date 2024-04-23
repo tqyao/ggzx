@@ -1,6 +1,7 @@
 import SvgIcon from '@/components/SvgIcon/index.vue'
 //引入element-plus提供全部图标组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import Category from '@/components/Category/index.vue'
 
 // allGlobalComponent 的映射，用于告诉 TypeScript allGlobalComponent 中的键都应该是字符串
 interface AllGlobalComponentMap {
@@ -17,7 +18,7 @@ interface AllGlobalComponentMap {
 // const allGlobalComponent = { SvgIcon }
 
 // 解决
-const allGlobalComponent = { SvgIcon } as AllGlobalComponentMap
+const allGlobalComponent = { SvgIcon, Category } as AllGlobalComponentMap
 
 export default {
   // main 中导入使用咱自定义插件后会自动执行 install 方法

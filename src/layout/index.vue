@@ -74,7 +74,8 @@ defineOptions({
     position: fixed;
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    //background: linear-gradient(to right, #464b50, #882222);
+    background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0.1));
+    border-bottom: 2px solid #ccc;
     top: 0;
     left: $base-menu-width;
     transition: all 0.3s;
@@ -89,7 +90,7 @@ defineOptions({
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background-color: yellowgreen;
+    //background-color: yellowgreen;
     top: $base-tabbar-height;
     left: $base-menu-width;
     padding: 20px;
