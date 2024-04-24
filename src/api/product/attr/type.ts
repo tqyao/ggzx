@@ -1,21 +1,5 @@
 // 分类响应数据类型定义
 
-
-// //分类相关的数据ts类型
-// export interface ResponseData {
-//   code: number
-//   message: string
-//   ok: boolean
-// }
-
-// //分类ts类型
-// export interface CategoryObj {
-//   id: number | string
-//   name: string
-//   category1Id?: number
-//   category2Id?: number
-// }
-
 // 1、2、3 级分类数组
 export type CategoryObjList = CategoryObj[]
 
@@ -52,7 +36,3 @@ export interface Attr {
 //存储每一个属性对象的数组ts类型
 export type AttrList = Attr[]
 
-// //属性接口返回的数据ts类型
-// export interface AttrResponseData {
-//   data: Attr[]
-// }

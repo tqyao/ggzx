@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { reqHasTrademarkServer, reqDeleteTrademarkServer } from '@/api/product/trademark'
 import type { TradeMark, Records } from '@/api/type'
-import TrademarkEdit from '@/views/product/trademark/components/trademarkEdit.vue'
+import TrademarkEdit from '@/views/product/trademark/components/TrademarkEdit.vue'
 
 // 当前页
 const pageNo = ref(1)
