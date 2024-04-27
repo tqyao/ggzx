@@ -2,7 +2,7 @@
 import request from '@/utils/request'
 // import type { TradeMarkResponseData, TradeMark } from './type'
 // import type { ResponseData, TradeMarkResponseData, TradeMark } from '@/api/type.ts'
-import type { ResponseData, TradeMarkResponseData, TradeMark } from '@/api/type.ts'
+import type { TradeMark, ResponsePageData } from '@/api/type.ts'
 
 //品牌管理模块接口地址
 enum API {
@@ -20,7 +20,7 @@ enum API {
 //page:获取第几页 ---默认第一页
 //limit:获取几个已有品牌的数据
 export const reqHasTrademarkServer = (page: number, limit: number) =>
-  request.get<any, ResponseData<TradeMarkResponseData>>(API.TRADEMARK_URL + `${page}/${limit}`)
+  request.get<any, ResponsePageData<TradeMark[]>>(API.TRADEMARK_URL + `${page}/${limit}`)
 //添加与修改已有品牌接口方法
 export const reqAddOrUpdateTrademarkServer = (data: TradeMark) => {
   //修改已有品牌的数据

@@ -11,7 +11,7 @@ const limit = ref(3)
 // 总记录数
 const total = ref(0)
 // 品牌列表
-const trademarkList = ref<Records>([])
+const trademarkList = ref<TradeMark[]>([])
 
 /**
  * 获取品牌列表数据
