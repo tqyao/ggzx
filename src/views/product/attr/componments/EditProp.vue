@@ -108,7 +108,8 @@ const handleBlur = (row: AttrValue, index: number) => {
   if (row.valueName) {
     // 检查是否属性值重复
     const findIndex = attrForm.value.attrValueList.findIndex(
-      (item: AttrValue, idx: number) => item.valueName === row.valueName && idx !== index
+      // (item: AttrValue, idx: number) => item.valueName === row.valueName && idx !== index
+      (item: AttrValue) => (item === row ? false : item.valueName === row.valueName)
     )
     if (findIndex > -1) {
       ElMessage({
@@ -151,7 +152,7 @@ const $emit = defineEmits(['success'])
 // 保存按钮回调
 const saveFn = async () => {
   await reqAddOrUpdateAttr(attrForm.value)
-  ElMessage.success('保存成功')
+  ElMessage.success(attrForm.value.id ? '修改成功' : '添加成功')
   editVisible.value = false
   $emit('success')
 }

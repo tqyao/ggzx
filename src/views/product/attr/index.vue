@@ -23,9 +23,9 @@ watch(
   () => categoryStore.c3Id,
   async (newVal) => {
     //如果三级分类有值，证明选中了三级分类，则可以请求属性列表数据
+    attrList.value = []
     if (newVal) {
       //清空上一次查询的属性与属性值，以防选择不同分类时，请求出现异常，展示了上一次请求的属性和值
-      attrList.value = []
       loading.value = true
       //请求数据
       getAttrFn()
@@ -70,16 +70,6 @@ const handleSuccess = () => {
   // 重新获取属性键值列表
   getAttrFn()
 }
-
-// 监听三级分类的id变化，分类切换时清空属性键值数据，c3Id 存在则请求属性数据
-watchEffect(() => {
-  if (categoryStore.c3Id) {
-    getAttrFn()
-  } else {
-    // 清空仓库分类相关的数据
-    attrList.value = []
-  }
-})
 
 //  路由组件销毁的时候，把仓库分类相关的数据清空
 onBeforeUnmount(() => {
