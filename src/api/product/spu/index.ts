@@ -2,7 +2,7 @@
 import request from '@/utils/request'
 
 import type { TradeMark } from '@/api/product/trademark/type'
-import type { SaleAttr, SkuData, SpuData, SpuImg } from './type'
+import type { HasSaleAttr, SaleAttr, SkuData, SpuData, SpuImg } from './type'
 import type { ResponsePageData, ResponseData } from '@/api/type'
 
 enum API {
@@ -29,25 +29,26 @@ enum API {
 }
 
 //获取某一个三级分类下已有的SPU数据
-export const reqHasSpu = (page: number, limit: number, category3Id: string | number) =>
+export const reqHasSpuServer = (page: number, limit: number, category3Id: string | number) =>
   request.get<any, ResponsePageData<SpuData[]>>(
     API.HASSPU_URL + `${page}/${limit}?category3Id=${category3Id}`
   )
 //获取全部的SPU的品牌的数据
-export const reqAllTradeMark = () =>
+export const reqAllTradeMarkServer = () =>
   request.get<any, ResponseData<TradeMark[]>>(API.ALLTRADEMARK_URL)
 //获取某一个已有的SPU下全部商品的图片地址
-export const reqSpuImageList = (spuId: number) =>
-  request.get<any, ResponseData<SpuImg>>(API.IMAGE_URL + spuId)
+export const reqSpuImageListServer = (spuId: number) =>
+  request.get<any, ResponseData<SpuImg[]>>(API.IMAGE_URL + spuId)
 //获取某一个已有的SPU拥有多少个销售属性
-export const reqSpuHasSaleAttr = (spuId: number) =>
+export const reqSpuHasSaleAttrServer = (spuId: number) =>
   request.get<any, ResponseData<SaleAttr[]>>(API.SPUHASSALEATTR_URL + spuId)
 //获取全部的销售属性
-export const reqAllSaleAttr = () => request.get<any, ResponseData<SaleAttr[]>>(API.ALLSALEATTR_URL)
+export const reqAllSaleAttrServer = () =>
+  request.get<any, ResponseData<HasSaleAttr[]>>(API.ALLSALEATTR_URL)
 //添加一个新的SPU的
 //更新已有的SPU接口
 //data:即为新增的SPU|或者已有的SPU对象
-export const reqAddOrUpdateSpu = (data: SpuData) => {
+export const reqAddOrUpdateSpuServer = (data: SpuData) => {
   //如果SPU对象拥有ID,更新已有的SPU
   if (data.id) {
     return request.post<any, any>(API.UPDATESPU_URL, data)
@@ -56,12 +57,12 @@ export const reqAddOrUpdateSpu = (data: SpuData) => {
   }
 }
 //添加SKU的请求方法
-export const reqAddSku = (data: SkuData) => request.post<any, any>(API.ADDSKU_URL, data)
+export const reqAddSkuServer = (data: SkuData) => request.post<any, any>(API.ADDSKU_URL, data)
 
 //获取SKU数据
-export const reqSkuList = (spuId: number | string) =>
+export const reqSkuListServer = (spuId: number | string) =>
   request.get<any, ResponseData<SkuData[]>>(API.SKUINFO_URL + spuId)
 
 //删除已有的SPU
-export const reqRemoveSpu = (spuId: number | string) =>
+export const reqRemoveSpuServer = (spuId: number | string) =>
   request.delete<any, any>(API.REMOVESPU_URL + spuId)

@@ -30,13 +30,13 @@ const open = (row: Attr) => {
 
   nextTick(() => {
     // 第一次挂载本页面时，让属性名输入框聚焦
-    attrNameInpRef.value.focus()
+    attrNameInpRef.value?.focus()
   })
 }
 
 // 计算是否有属性值输入框可用（显示）
 const isValueInpEnabled = computed(() => {
-  return attrForm.value.attrValueList.some((item: AttrValue) => item.flag)
+  return attrForm.value.attrValueList?.some((item: AttrValue) => item.flag)
 })
 
 // 计算是否有属性值（即属性值数组中是否有属性值对象）
@@ -79,7 +79,7 @@ const addAttrFn = () => {
     return
   }
 
-  attrForm.value.attrValueList.push({
+  attrForm.value.attrValueList?.push({
     valueName: '',
     flag: true
   })
@@ -98,26 +98,27 @@ const cancelFn = () => {
 }
 
 // 删除属性值回调
-const delAttrValFn = (index) => {
+const delAttrValFn = (index: number) => {
   // 删除属性值
-  attrForm.value.attrValueList.splice(index, 1)
+  attrForm.value.attrValueList?.splice(index, 1)
 }
 
 // 属性值输入框失去焦点回调
 const handleBlur = (row: AttrValue, index: number) => {
   if (row.valueName) {
     // 检查是否属性值重复
-    const findIndex = attrForm.value.attrValueList.findIndex(
-      // (item: AttrValue, idx: number) => item.valueName === row.valueName && idx !== index
-      (item: AttrValue) => (item === row ? false : item.valueName === row.valueName)
-    )
+    const findIndex =
+      attrForm.value.attrValueList?.findIndex(
+        // (item: AttrValue, idx: number) => item.valueName === row.valueName && idx !== index
+        (item: AttrValue) => (item === row ? false : item.valueName === row.valueName)
+      ) || 0
     if (findIndex > -1) {
       ElMessage({
         type: 'error',
         message: '属性值不能重复'
       })
       // 删除当前属性值对象
-      attrForm.value.attrValueList.splice(index, 1)
+      attrForm.value.attrValueList?.splice(index, 1)
       return
     }
     // 失去焦点时，如果属性值输入框有值，则将 flag 设置为 false 表示隐藏属性值输入框，展示该值的文本
@@ -128,7 +129,7 @@ const handleBlur = (row: AttrValue, index: number) => {
       message: '属性值不能为空'
     })
     // 否则，删除当前属性值对象
-    attrForm.value.attrValueList.splice(index, 1)
+    attrForm.value.attrValueList?.splice(index, 1)
   }
 }
 
@@ -142,7 +143,7 @@ const saveDisabled = computed(() => {
    */
   return (
     attrForm.value.attrValueList.length < 1 ||
-    attrForm.value.attrValueList.some((item: AttrValue) => {
+    attrForm.value.attrValueList?.some((item: AttrValue) => {
       return item.valueName === '' || item.flag
     })
   )

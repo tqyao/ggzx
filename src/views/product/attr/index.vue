@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCategoryStore } from '@/store/modules/category'
-import { watch, ref, onBeforeUnmount, watchEffect } from 'vue'
+import { watch, ref, onBeforeUnmount } from 'vue'
 import { reqAttr, reqRemoveAttr } from '@/api/product/attr'
 import type { Attr, AttrList } from '@/api/product/attr/type'
 import { storeToRefs } from 'pinia'
@@ -10,7 +10,6 @@ const loading = ref(false)
 const categoryStore = useCategoryStore()
 // 属性列表
 const attrList = ref<AttrList>([])
-
 const getAttrFn = async () => {
   //从 store 中提取属性时保持其响应性，你需要使用 storeToRefs()。它将为每一个响应式属性创建引用
   const { c1Id, c2Id, c3Id } = storeToRefs(categoryStore)
@@ -44,7 +43,7 @@ const editPropRef = ref<InstanceType<typeof EditProp>>()
 // 点击添加属性回调
 const addAttrFn = () => {
   // 传递 三级分类id和分类 level 给子组件
-  editPropRef.value.open({
+  editPropRef.value?.open({
     categoryId: categoryStore.c3Id,
     categoryLevel: 3
   })
@@ -52,7 +51,7 @@ const addAttrFn = () => {
 
 // 点击编辑属性名所属的属性值回调
 const editAttrFn = (row: Attr) => {
-  editPropRef.value.open(row)
+  editPropRef.value?.open(row)
 }
 
 const delAttrFn = async (attrId: number) => {
