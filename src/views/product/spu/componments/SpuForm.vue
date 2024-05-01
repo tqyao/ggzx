@@ -206,7 +206,7 @@ const save = async () => {
   await reqAddOrUpdateSpuServer(spuParams.value)
   ElMessage.success(spuParams.value.id ? '修改SPU成功' : '添加SPU成功')
   resetForm()
-  $emit('close', 'reflush')
+  $emit('close', spuParams.value.id ? 'update' : 'add')
 }
 const cancel = () => {
   resetForm()

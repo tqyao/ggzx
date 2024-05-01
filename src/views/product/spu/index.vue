@@ -59,9 +59,15 @@ const editSpuFn = (row: SpuData) => {
   scen.value = 1
   spuFormRef.value?.open(row)
 }
-const handleClose = (reflush: 'reflush') => {
+const handleClose = (optType: 'update' | 'add') => {
   scen.value = 0
-  reflush && getSpuPageFn()
+  if (optType === 'update') {
+    getSpuPageFn(pageNo.value)
+    return
+  }
+  if (optType === 'add') {
+    getSpuPageFn()
+  }
 }
 
 const deleteSpuFn = async (spuId: string | number) => {
