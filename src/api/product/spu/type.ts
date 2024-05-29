@@ -7,6 +7,7 @@
 
 //SPU数据的ts类型:需要修改
 export interface SpuData {
+  kind?: 'SpuData'
   category3Id: string | number
   id?: number
   spuName: string
@@ -82,8 +83,12 @@ export interface SaleAttr {
   baseSaleAttrId: number | string
   saleAttrName: string
   spuSaleAttrValueList: SaleAttrValue[]
+  // 标记该属性名下的属性值 输入框 与 Tag的显示与隐藏
   flag?: boolean
+  // 属性名下属性值输入框双向数据绑字段
   saleAttrValue?: string
+  // 该 sku 选择的销售属性 id 和销售属性值
+  saleAttrIdAndValueId?: ''
 }
 
 // //SPU已有的销售属性接口返回数据ts类型

@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useCategoryStore } from '@/store'
-import type { SpuData } from '@/api/product/spu/type'
-import { reqHasSpuServer, reqRemoveSpuServer } from '@/api/product/spu'
+import type { SkuData, SpuData } from '@/api/product/spu/type'
+import { reqHasSpuServer, reqRemoveSpuServer, reqSkuListServer } from '@/api/product/spu'
 import SkuForm from '@/views/product/spu/componments/SkuForm.vue'
 import SpuForm from '@/views/product/spu/componments/SpuForm.vue'
 
-// // !用于测试
-// onMounted(() => {
-//   setTimeout(() => {
-//     categoryStore.c1Id = 2
-//     setTimeout(() => {
-//       categoryStore.c2Id = 13
-//       setTimeout(() => {
-//         categoryStore.c3Id = 61
-//         getSpuPageFn()
-//       }, 100)
-//     }, 200)
-//   }, 1000)
-// })
+// !用于测试
+onMounted(() => {
+  setTimeout(() => {
+    categoryStore.c1Id = 2
+    setTimeout(() => {
+      categoryStore.c2Id = 13
+      setTimeout(() => {
+        categoryStore.c3Id = 61
+        getSpuPageFn()
+      }, 100)
+    }, 200)
+  }, 1000)
+})
 
 // 场景切换 0:spu列表；1：添加修改 spu；2：添加修改 sku
 const scen = ref(0)
@@ -52,14 +52,19 @@ const addSpuFn = () => {
   scen.value = 1
   spuFormRef.value?.open({ category3Id: categoryStore.c3Id } as SpuData)
 }
-const addSkuFn = () => {
+const skuFormRef = ref<InstanceType<typeof SkuForm> | null>(null)
+const addSkuFn = (row: SpuData) => {
   scen.value = 2
+  skuFormRef.value?.open(categoryStore.c1Id, categoryStore.c2Id, {
+    ...row,
+    kind: 'SpuData'
+  })
 }
 const editSpuFn = (row: SpuData) => {
   scen.value = 1
   spuFormRef.value?.open(row)
 }
-const handleClose = (optType: 'update' | 'add') => {
+const handleSpuClose = (optType: 'update' | 'add') => {
   scen.value = 0
   if (optType === 'update') {
     getSpuPageFn(pageNo.value)
@@ -69,6 +74,9 @@ const handleClose = (optType: 'update' | 'add') => {
     getSpuPageFn()
   }
 }
+const handleSkuClose = () => {
+  scen.value = 0
+}
 
 const deleteSpuFn = async (spuId: string | number) => {
   await reqRemoveSpuServer(spuId)
@@ -76,6 +84,14 @@ const deleteSpuFn = async (spuId: string | number) => {
   const totalPage = Math.ceil((total.value - 1) / pageSize.value)
   const page = totalPage > pageNo.value ? pageNo.value : totalPage
   await getSpuPageFn(page)
+}
+
+const show = ref<boolean>(false)
+const skuArr = ref<SkuData[]>()
+const lookSkuList = async (row: SpuData) => {
+  const resp = await reqSkuListServer(row.id as number)
+  skuArr.value = resp.data
+  show.value = true
 }
 
 onBeforeUnmount(() => {
@@ -92,7 +108,7 @@ defineOptions({
   <div>
     <!-- 三级分类 -->
     <Category :disabled="scen !== 0"></Category>
-    <el-card style="margin: 10px 0px">
+    <el-card style="margin: 10px 0">
       <div v-show="scen === 0" class="spu-list">
         <el-button @click="addSpuFn" type="primary" size="default" icon="Plus">添加SPU</el-button>
         <el-table :data="spuPageDate" border style="margin: 10px 0px">
@@ -106,7 +122,7 @@ defineOptions({
           <el-table-column label="SPU操作">
             <template #default="{ row, $index }">
               <el-button
-                @click="addSkuFn"
+                @click="addSkuFn(row)"
                 type="primary"
                 size="small"
                 title="添加 SKU"
@@ -119,7 +135,13 @@ defineOptions({
                 title="修改 SPU"
                 icon="Edit"
               ></el-button>
-              <el-button type="success" size="small" title="查看 SKU 列表" icon="View"></el-button>
+              <el-button
+                @click="lookSkuList(row)"
+                type="success"
+                size="small"
+                title="查看 SKU 列表"
+                icon="View"
+              ></el-button>
               <el-popconfirm @confirm="deleteSpuFn(row.id)" :title="`你确定删除${row.spuName}?`">
                 <template #reference>
                   <el-button type="danger" size="small" title="删除 SPU" icon="Delete"></el-button>
@@ -143,9 +165,21 @@ defineOptions({
           :total="total"
         />
       </div>
-
-      <spu-form @close="handleClose" ref="spuFormRef" v-show="scen === 1"></spu-form>
-      <sku-form v-show="scen === 2"></sku-form>
+      <spu-form @close="handleSpuClose" ref="spuFormRef" v-show="scen === 1"></spu-form>
+      <sku-form @close="handleSkuClose" ref="skuFormRef" v-show="scen === 2"></sku-form>
+      <!-- dialog对话框:展示已有的SKU数据 -->
+      <el-dialog v-model="show" title="SKU列表">
+        <el-table border :data="skuArr">
+          <el-table-column label="SKU名字" prop="skuName"></el-table-column>
+          <el-table-column label="SKU价格" prop="price"></el-table-column>
+          <el-table-column label="SKU重量" prop="weight"></el-table-column>
+          <el-table-column label="SKU图片">
+            <template #default="{ row, $index }">
+              <img :src="row.skuDefaultImg" style="width: 100px; height: 100px" />
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-dialog>
     </el-card>
   </div>
 </template>

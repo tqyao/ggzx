@@ -31,6 +31,7 @@ export interface Attr {
   categoryId: number | string
   categoryLevel: number
   attrValueList?: AttrValueList
+  attrIdAndValueId?:string  // select 选中后双向数据绑定值
 }
 
 //存储每一个属性对象的数组ts类型

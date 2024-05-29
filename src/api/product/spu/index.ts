@@ -59,7 +59,7 @@ export const reqAddOrUpdateSpuServer = (data: SpuData) => {
 //添加SKU的请求方法
 export const reqAddSkuServer = (data: SkuData) => request.post<any, any>(API.ADDSKU_URL, data)
 
-//获取SKU数据
+//获取SKU列表数据
 export const reqSkuListServer = (spuId: number | string) =>
   request.get<any, ResponseData<SkuData[]>>(API.SKUINFO_URL + spuId)
 

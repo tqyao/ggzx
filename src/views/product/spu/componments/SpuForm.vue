@@ -36,15 +36,6 @@ const spuFormRules = reactive<FormRules<typeof spuParams.value>>({
   ]
 })
 
-// const spuFormRules = {
-//   spuName: [{ required: true, message: '请输入SPU名称', trigger: 'blur' }],
-//   tmId: [{ required: true, message: '请选择SPU品牌', trigger: 'change' }],
-//   description: [
-//     { required: true, message: '请输入SPU描述', trigger: 'blur' },
-//     { min: 5, message: '描述不少于 5 个字符', trigger: 'blur' }
-//   ]
-// }
-
 const allTradeMark = ref<TradeMark[]>([])
 const getTradeMarkList = async () => {
   const resp = await reqAllTradeMarkServer()
@@ -213,6 +204,11 @@ const cancel = () => {
   $emit('close')
 }
 
+const copyFn = () => {
+  spuParams.value.id = undefined
+  save()
+}
+
 defineExpose({
   open
 })
@@ -312,7 +308,7 @@ defineOptions({
               @close="row.spuSaleAttrValueList.splice(index, 1)"
               v-for="(item, index) in row.spuSaleAttrValueList"
               :key="item.id"
-              style="margin: 0px 5px"
+              style="margin: 0 5px"
               class="mx-1"
               closable
               >{{ item.saleAttrValueName }}
@@ -345,6 +341,7 @@ defineOptions({
     <el-form-item>
       <el-button type="primary" size="default" @click="save">保存</el-button>
       <el-button type="primary" size="default" @click="cancel">取消</el-button>
+      <el-button type="primary" size="default" @click="copyFn">复制</el-button>
     </el-form-item>
   </el-form>
 </template>
